@@ -1,0 +1,241 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Checkout example · Bootstrap</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/checkout/">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 950px;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script>
+
+        // LOGO
+        function logo() {
+            var div = document.createElement('div');
+            div.className = 'pt-5 pb-4 text-center';
+            var logo = document.createElement('img');
+            logo.className = 'd-block mx-auto';
+            logo.src = 'bootstrap-solid.svg';
+            logo.width = 72;
+            logo.height = 72;
+            div.appendChild(logo);
+            return div;
+        }
+
+        // TITLE
+        function title() {
+            var div = document.createElement('div');
+            div.className = 'text-center';
+            var h2 = document.createElement('h2');
+            h2.appendChild(document.createTextNode('Checkout form'));
+            div.appendChild(h2);
+            return div;
+        }
+
+        // TEXT
+        function text() {
+            var div = document.createElement('div');
+            div.className = 'text-center mx-2';
+            var p = document.createElement('p');
+            p.className = 'lead';
+            p.appendChild(document.createTextNode('Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.'));
+            div.appendChild(p);
+            return div;
+        }
+
+        // CART
+
+        // CART TITLE
+        function cartTitle() {
+            var div = document.createElement('div');
+            var h4 = document.createElement('h4');
+            h4.className = 'd-flex justify-content-between align-items-center mb-3';
+            var span = document.createElement('span');
+            span.className = 'text-muted';
+            span.appendChild(document.createTextNode('Your cart'));
+            h4.appendChild(span);
+            span = document.createElement('span');
+            span.className = 'badge badge-secondary badge-pill';
+            span.appendChild(document.createTextNode('3'));
+            h4.appendChild(span);
+            div.appendChild(h4);
+            return div;
+        }
+
+        // CART ELEMENTS
+        function cartItem(name, description, price, promocode = false) {
+            var li = document.createElement('li');
+            var div = document.createElement('div');
+            if (promocode) {
+                div.className = 'text-success';
+                li.className = 'list-group-item d-flex justify-content-between bg-light';
+            }
+            else {
+                li.className = 'list-group-item d-flex justify-content-between lh-condensed';
+            }
+            var h6 = document.createElement('h6');
+            h6.className = 'my-0';
+            var small = document.createElement('small');
+            small.className = 'text-muted';
+            var span = document.createElement('span');
+            span.className = 'text-muted';
+
+            h6.appendChild(document.createTextNode(name));
+            small.appendChild(document.createTextNode(description));
+            div.appendChild(h6);
+            div.appendChild(small);
+            li.appendChild(div);
+            span.appendChild(document.createTextNode(price));
+            li.appendChild(span);
+
+            return li;
+        }
+
+        // CART CODE INPUT
+        function code() {
+            var inputcode = document.createElement('form');
+            inputcode.className = 'card p-2 my-3';
+            var div = document.createElement('div');
+            div.className = 'input-group';
+            inputcode.appendChild(div);
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control';
+            input.placeholder = 'Promo code';
+            div.appendChild(input);
+            var div_button = document.createElement('div');
+            div_button.className = 'input-group-append';
+            var button = document.createElement('button');
+            button.type = 'submit';
+            button.className = 'btn btn-secondary';
+            button.appendChild(document.createTextNode('Redeem'));
+            div_button.appendChild(button);
+            div.appendChild(div_button);
+
+            return inputcode;
+        }
+
+        // CART STRUCTURE
+        function cartElements() {
+            var column = document.createElement('div');
+            column.className = 'col-md-4 order-md-2 mb-4';
+            var ul = document.createElement('ul');
+            ul.className = 'list-group mb-3';
+            ul.appendChild(cartTitle());
+            ul.appendChild(cartItem('Product name', 'Brief description', '$12'));
+            ul.appendChild(cartItem('Second Product', 'Brief description', '$8'));
+            ul.appendChild(cartItem('Third item', 'Brief description', '$5'));
+            ul.appendChild(cartItem('Promo code', 'EXAMPLECODE', '-$5', true));
+            var total = document.createElement('li');
+            total.className = 'list-group-item d-flex justify-content-between';
+            var total_span = document.createElement('span');
+            total_span.appendChild(document.createTextNode('Total (USD)'));
+            var total_price = document.createElement('strong');
+            total_price.appendChild(document.createTextNode('$20'));
+            total.appendChild(total_span);
+            total.appendChild(total_price);
+            ul.appendChild(total);
+            column.appendChild(ul);
+            ul.appendChild(code());
+            return column;
+        }
+
+        // FOOTER
+
+        // COMPANY NAME
+        function companyName() {
+            var name = document.createElement('footer');
+            name.className = 'my-1 pt-4 text-muted text-center text-small';
+            var pph = document.createElement('p');
+            pph.className = 'mb-1';
+            pph.appendChild(document.createTextNode('2017-2019 Company Name'));
+            name.appendChild(pph);
+            return name;
+        }
+
+        // LINKS
+        function links() {
+            var links = document.createElement('div');
+            links.className = 'text-muted text-center text-small';
+            var ul = document.createElement('ul');
+            ul.className = 'list-inline';
+
+            function linkItem(name) {
+                var item = document.createElement('li');
+                item.className = 'list-inline-item';
+                var a = document.createElement('a');
+                a.href = '#';
+                a.appendChild(document.createTextNode(name));
+                item.appendChild(a);
+                return item;
+            }
+
+            ul.appendChild(linkItem('Privacy'));
+            ul.appendChild(linkItem('Terms'));
+            ul.appendChild(linkItem('Support'));
+            links.appendChild(ul);
+            return links;
+        }
+
+
+        // OBTAIN DOM ELEMENTS
+        var body = document.getElementsByTagName('body')[0];
+        body.className = 'bg-light mx-5';
+        var container = document.createElement('div');
+        container.className = 'container';
+        body.appendChild(container);
+
+        // HEADER
+        container.appendChild(logo());
+        container.appendChild(title());
+        container.appendChild(text());
+
+        // FROM
+        var section = document.createElement('div');
+        section.className = 'row py-5';
+        container.appendChild(section);
+        section.appendChild(cartElements());
+
+        // FOOTER
+        container.appendChild(companyName());
+        container.appendChild(links());
+    </script>
+</body>
+
+</html>
